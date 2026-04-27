@@ -1,0 +1,15 @@
+*.py[cod]
+__pycache__/
+*.so
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+library.db
+db.sqlite3
+.idea/
+.vscode/
+*.swp
+*.bak
+*.pyc
