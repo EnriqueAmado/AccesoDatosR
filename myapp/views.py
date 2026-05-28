@@ -1,10 +1,13 @@
+from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Usuario
 from .serializers import UsuarioSerializer
+from django.shortcuts import get_object_or_404
 
 class UsuarioListCreate(APIView):
+    parser_classes = [JSONParser]
     # GET: Listar todos los usuarios
     def get(self, request):
         usuarios = Usuario.objects.all()
@@ -18,3 +21,9 @@ class UsuarioListCreate(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UsuarioDetail(APIView):
+    def get(self, request, id):
+        usuario = get_object_or_404(Usuario, id=id)
+        serializer = UsuarioSerializer(usuario)
+        return Response(serializer.data, status=status.HTTP_200_OK)
